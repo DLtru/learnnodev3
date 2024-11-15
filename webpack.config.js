@@ -23,6 +23,10 @@ export default {
             test: /\.css$/i,
             use: ["./style-loader" , "css-loader"],
           },
+          {
+            test: /\.scss$/i,
+            use: ["./style-loader" ,  "sass-loader"],
+          },
         ],
     },
     plugins: [
