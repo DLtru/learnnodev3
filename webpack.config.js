@@ -21,11 +21,11 @@ export default {
         rules: [
           {
             test: /\.css$/i,
-            use: ["./style-loader" , "css-loader"],
+            use: ["style-loader" , "css-loader"],
           },
           {
             test: /\.scss$/i,
-            use: ["./style-loader" ,  "sass-loader"],
+            use: ["style-loader" , "css-loader" ,  "sass-loader"],
           },
         ],
     },
