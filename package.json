@@ -2,12 +2,12 @@
   "name": "learnnode",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "type": "module",
   "scripts": {
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "start": "webpack server --mode development"
+    "serve": "npx webpack server --mode development",
+    "start": "nodemon --watch webpack.config.js --exec \"npm run serve\""
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "bulma": "^1.0.2",
     "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.6.3",
+    "nodemon": "^3.1.7",
     "sass": "^1.81.0",
     "sass-loader": "^16.0.3",
     "simple-nunjucks-loader": "^3.2.0",

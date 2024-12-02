@@ -1,6 +1,45 @@
 {% extends 'src/partials/layout.njk' %}
 {% block content %}
   <div class="content">
-      <h1>It works!</h1>
-  </div>
-{% endblock %}
+    <h1>It works!</h1>
+    <h1>Hello {{ name }}</h1>
+    <div class='columns is-multiline'>
+      {% for character in characters %}
+        <div class='card'>
+          <div class="card">
+            <header class="card-header">
+              <p class="card-header-title">{{ character.name }}</p>
+            </header>
+          </div>
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="{{ character.image }}" alt="Placeholder image"/>
+              </div>
+              <div class="card-content">
+                <div class="content">
+                  <table class="table is-striped is-fullwidth">
+                    <tbody>
+                      <tr>
+                        <th>Status</th>
+                        <td>{{ character.status }}</td>
+                      </tr>
+                      <tr>
+                        <th>Status</th>
+                        <td>{{ character.species }}</td>
+                      </tr>
+                      <tr>
+                        <th>Status</th>
+                        <td>{{ character.gender }}</td>
+                      </tr>
+                    </tbody>
+                    <table>
+                      <a class="button is-primary">Read More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endblock %}
