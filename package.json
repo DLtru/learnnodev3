@@ -7,7 +7,8 @@
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "serve": "npx webpack server --mode development",
-    "start": "nodemon --watch webpack.config.js --exec \"npm run serve\""
+    "start": "nodemon --watch webpack.config.js --exec \"npm run serve\"",
+    "deploy": "npm run build && surge ./dist dimitriscool.surge.sh"
   },
   "keywords": [],
   "author": "",

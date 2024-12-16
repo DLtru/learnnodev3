@@ -1,6 +1,5 @@
 import path from "path";
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import loader from "sass-loader";
 
 const __filename = import.meta.filename;
 const __dirname = import.meta.dirname;
@@ -8,7 +7,7 @@ const __dirname = import.meta.dirname;
 let name = 'Dimitri Larionov';
 
 export default async () => {
-    const response = await fetch('https://rickandmortyapi.com/api/character');
+    const response = await fetch('https://rickandmortyapi.com/api/character?page=14');
     const data = await response.json();
     const characters = data.results;
     const pages = [];
