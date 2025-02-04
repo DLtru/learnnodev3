@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "serve": "npx webpack server --mode development",
-    "start": "nodemon --watch webpack.config.js --exec \"npm run serve\"",
+    "start": "npx webpack server --mode development",
     "deploy": "npm run build && surge ./dist dimitriscool.surge.sh"
   },
   "keywords": [],
@@ -22,6 +21,9 @@
     "sass-loader": "^16.0.3",
     "simple-nunjucks-loader": "^3.2.0",
     "style-loader": "^4.0.0",
+    "vue": "^3.5.13",
+    "vue-loader": "^17.4.2",
+    "vue-template-compiler": "^2.7.16",
     "webpack": "^5.96.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.1.0"
