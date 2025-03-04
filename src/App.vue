@@ -5,6 +5,10 @@ import RouterTabs from './components/RouterTabs.vue';
 
 </script>
 <template>
-<RouterTabs></RouterTabs>
-<RouterView></RouterView>
+    <RouterTabs></RouterTabs>
+    <div class="container">
+        <section class="section">
+            <RouterView></RouterView>
+        </section>
+    </div>
 </template>
