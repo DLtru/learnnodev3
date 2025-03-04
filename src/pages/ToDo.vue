@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue';
-import ItemList from './ItemList.vue';
+import ItemList from '../components/ItemList.vue';
 let id = 1;
 let items = ref([
   {id: id++, name: 'Milk', isDone: true },
