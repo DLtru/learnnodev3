@@ -1,29 +1,37 @@
 <script setup>
 import axios from 'axios';
 import { ref } from 'vue';
-let response = await axios.get('https://rickandmortyapi.com/api/character');
-console.log(response.data);
-let characters = ref(response.data.results);
-let pagination = ref(response.data.info);
+import CharacterCard from '../components/CharacterCard.vue';
+
+let characters = ref([]);
+let pagination = ref([]);
+
+await getCharacters('https://rickandmortyapi.com/api/character');
+
+async function getCharacters(url) {
+    let response = await axios.get(url);
+    console.log(response.data);
+    characters.value = response.data.results;
+    pagination.value = response.data.info;
+}
+
+async function next() {
+    await getCharacters(pagination.value.next);
+}
+
+async function prev() {
+    await getCharacters(pagination.value.prev);
+}
 </script>
 
 <template>
-    <div class="columns">
-        <div class="column" v-for="character in characters">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">Card header</p>
-                </header>
-                <div class="card-image">
-                    <figure class="image is-4by3">
-                        <img src="https://bulma.io/assets/images/placeholders/1280x960.png" alt="Placeholder image" />
-                    </figure>
-                </div>
-                <div class="card-content">
-                    <div class="content">
-                    </div>
-                </div>
-            </div>
+    <div class="buttons">
+        <button class="button is-primary" @click="prev" :disabled="!pagination.prev">Previous</button>
+        <button class="button is-primary" @click="next" :disabled="!pagination.next">Next</button>
+    </div>
+    <div class="columns is-multiline">
+        <div class="column is-one-quarter" v-for="character in characters">
+            <CharacterCard :character="character"></CharacterCard>
         </div>
     </div>
 </template>
