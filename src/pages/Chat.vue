@@ -5,19 +5,31 @@ import { ref } from 'vue';
 let message = ref('');
 let messages = ref([]);
 let lastMessageDate = null;
-// polling
-setInterval(async () => {
-    let res = await axios.get('http://localhost:3000/messages', {
-         params: {
-             date: lastMessageDate
-         }
-     });
-     messages.value.push(...res.data);
-     if(res.data.length > 0){
-         let lastMessage = res.data[res.data.length-1];
-         lastMessageDate = lastMessage.date;
-     }
-}, 1000);
+
+let res = await axios.get('http://localhost:3000/messages');
+messages.value.push(...res.data);
+if(res.data.length > 0){
+    let lastMessage = res.data[res.data.length-1];
+    lastMessageDate = lastMessage.date;
+}
+
+longPoll();
+
+async function longPoll(){
+    let res = await axios.get('http://localhost:3000/messages/longpoll', {
+        params: {
+            date: lastMessageDate
+        }
+    });
+    messages.value.push(...res.data);
+    if(res.data.length > 0){
+        let lastMessage = res.data[res.data.length-1];
+        lastMessageDate = lastMessage.date;
+    }
+    await longPoll();
+}
+
+
 
 
 async function send() {
@@ -25,7 +37,6 @@ async function send() {
         message: message.value
     });
     message.value = '';
-    messages.value.push(res.data);
 }
 </script>
 
