@@ -31,6 +31,31 @@ app.get('/messages/longpoll', async (req, res) => {
     res.json(filteredMessages);
 });
 
+app.get('/messages/sse', async (req, res) => {
+    res.set('Content-Type', 'text/event-stream');
+    res.set('Cache-Control', 'no-cache');
+    res.set('Connection', 'keep-alive');
+    let closed = false;
+    req.on('close', () => {
+        closed = true;
+    });
+    let date = new Date();
+    let filteredMessages = [];
+    do {
+        await sleep(1000);
+        filteredMessages = messages.filter(msg => msg.date > date);
+        if(filteredMessages.length) {
+            let lastMessage = filteredMessages[filteredMessages.length-1];
+            date = new Date(lastMessage.date);
+        }
+        res.write(`event: newmessage\n`);
+        res.write(`data: ${JSON.stringify(filteredMessages)}\n\n`);
+    } while(!closed)
+
+    res.end();
+    //res.json(filteredMessages);
+});
+
 
 app.post('/messages', (req, res) => {
     messages.push({ message: req.body.message, date: new Date()});

@@ -4,31 +4,18 @@ import { ref } from 'vue';
 
 let message = ref('');
 let messages = ref([]);
-let lastMessageDate = null;
+
 
 let res = await axios.get('http://localhost:3000/messages');
 messages.value.push(...res.data);
-if(res.data.length > 0){
-    let lastMessage = res.data[res.data.length-1];
-    lastMessageDate = lastMessage.date;
-}
 
-longPoll();
+const eventSource = new EventSource('http://localhost:3000/messages/sse');
 
-async function longPoll(){
-    let res = await axios.get('http://localhost:3000/messages/longpoll', {
-        params: {
-            date: lastMessageDate
-        }
-    });
-    messages.value.push(...res.data);
-    if(res.data.length > 0){
-        let lastMessage = res.data[res.data.length-1];
-        lastMessageDate = lastMessage.date;
-    }
-    await longPoll();
-}
-
+eventSource.addEventListener('newmessage', (event) => {
+    console.log(event);
+    let data = JSON.parse(event.data);
+    messages.value.push(...data);
+});
 
 
 
