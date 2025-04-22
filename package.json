@@ -34,6 +34,7 @@
     "axios": "^1.7.9",
     "body-parser": "^2.2.0",
     "express": "^5.1.0",
+    "leaflet": "^1.9.4",
     "vue-router": "^4.5.0",
     "ws": "^8.18.1"
   }
